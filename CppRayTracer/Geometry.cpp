@@ -168,6 +168,11 @@ Vector3D Vector3D::operator-() const
     return Vector3D(-X, -Y, -Z);
 }
 
+Vector3D Vector3D::Projection(const Direction3D& direction) const
+{
+    return direction * Dot(*this, direction);
+}
+
 Vector3D Vector3D::Projection(const Vector3D& direction) const
 {
     float denominator = Dot(direction, direction);

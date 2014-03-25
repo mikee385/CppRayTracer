@@ -62,6 +62,7 @@ struct Vector3D
     Vector3D& operator/=(float scale);
     Vector3D operator-() const;
 
+    Vector3D Projection(const Direction3D& direction) const;
     Vector3D Projection(const Vector3D& direction) const;
     Vector3D Rotate(const Matrix3D& matrix) const;
 
