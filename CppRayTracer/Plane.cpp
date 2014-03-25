@@ -7,9 +7,9 @@ Plane::Plane(const Point3D& origin, const Direction3D& normal, const ColorRGB& c
     , material(color)
 {}
 
-Plane::Plane(float d, const Direction3D& normal, const ColorRGB& color)
-    : _origin(-d * normal)
-    , _normal(normal)
+Plane::Plane(float d, const Vector3D& vector, const ColorRGB& color)
+    : _origin(-(d / Dot(vector, vector)) * vector)
+    , _normal(vector)
     , material(color)
 {}
 

@@ -14,7 +14,7 @@ private:
 
 public:
     Plane(const Point3D& origin, const Direction3D& normal, const ColorRGB& color);
-    Plane(float d, const Direction3D& normal, const ColorRGB& color);
+    Plane(float d, const Vector3D& vector, const ColorRGB& color);
 
     Material material;
     

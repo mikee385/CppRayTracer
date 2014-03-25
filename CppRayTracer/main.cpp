@@ -173,7 +173,7 @@ int main()
     extraSphere->material.RefractiveIndex = 1.5f;
     scene.AddObject(extraSphere.get());
 
-    std::unique_ptr<Plane> backPlane(new Plane(12 / std::sqrt(1.16f), Direction3D(0.4f, 0, -1), ColorRGB(0.5f, 0.3f, 0.5f)));
+    std::unique_ptr<Plane> backPlane(new Plane(12, Vector3D(0.4f, 0, -1), ColorRGB(0.5f, 0.3f, 0.5f)));
     backPlane->material.Diffuse = 0.6f;
     backPlane->material.Specular = 0.0f;
     backPlane->material.Shininess = 0;
