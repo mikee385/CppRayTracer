@@ -1,5 +1,6 @@
 #include "Geometry.h"
 #include <cmath>
+#include <cassert>
 
 const float Epsilon = 1.0e-9f;
 const float Pi = std::atan(1.0f) * 4.0f;
@@ -156,6 +157,8 @@ Vector3D& Vector3D::operator*=(float scale)
 
 Vector3D& Vector3D::operator/=(float scale)
 {
+    assert(scale != 0 && "Division by zero in Vector3D::operator/=(float scale)");
+
     float invScale = 1 / scale;
     X *= invScale;
     Y *= invScale;
@@ -240,6 +243,8 @@ Vector3D operator*(float scale, const Vector3D& vector)
 
 Vector3D operator/(const Vector3D& vector, float scale)
 {
+    assert(scale != 0 && "Division by zero in operator/(const Vector3D& vector, float scale)");
+
     float invScale = 1 / scale;
     return Vector3D(
         vector.X * invScale,
@@ -249,6 +254,8 @@ Vector3D operator/(const Vector3D& vector, float scale)
 
 Vector3D operator/(float scale, const Vector3D& vector)
 {
+    assert(scale != 0 && "Division by zero in operator/(float scale, const Vector3D& vector)");
+
     float invScale = 1 / scale;
     return Vector3D(
         vector.X * invScale,
