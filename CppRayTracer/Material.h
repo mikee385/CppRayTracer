@@ -3,6 +3,8 @@
 
 #include "ColorRGB.h"
 
+class MaterialBuilder;
+
 struct Material
 {
     ColorRGB Color;
@@ -13,15 +15,33 @@ struct Material
     float Refraction;
     float RefractiveIndex;
 
-    Material(const ColorRGB& color)
-        : Color(color)
-        , Diffuse(1.0f)
-        , Specular(0.0f)
-        , Shininess(0)
-        , Reflection(0.0f)
-        , Refraction(0.0f)
-        , RefractiveIndex(0.0f)
-    {}
+    Material(const ColorRGB& color);
+    Material(const MaterialBuilder& params);
+};
+
+class MaterialBuilder
+{
+private:
+    friend struct Material;
+
+    ColorRGB _color;
+    float _diffuse;
+    float _specular;
+    int _shininess;
+    float _reflection;
+    float _refraction;
+    float _refractiveIndex;
+
+public:
+    MaterialBuilder();
+
+    MaterialBuilder& Color(ColorRGB color);
+    MaterialBuilder& Diffuse(float diffuse);
+    MaterialBuilder& Specular(float specular);
+    MaterialBuilder& Shininess(int shininess);
+    MaterialBuilder& Reflection(float reflection);
+    MaterialBuilder& Refraction(float refraction);
+    MaterialBuilder& RefractiveIndex(float refractiveIndex);
 };
 
 #endif

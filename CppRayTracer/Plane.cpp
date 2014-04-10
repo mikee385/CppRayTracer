@@ -1,16 +1,16 @@
 #include "Plane.h"
 #include <cmath>
 
-Plane::Plane(const Point3D& origin, const Direction3D& normal, const ColorRGB& color)
+Plane::Plane(const Point3D& origin, const Direction3D& normal, const Material& material)
     : _origin(origin)
     , _normal(normal)
-    , material(color)
+    , _material(material)
 {}
 
-Plane::Plane(float d, const Vector3D& vector, const ColorRGB& color)
+Plane::Plane(float d, const Vector3D& vector, const Material& material)
     : _origin(-(d / Dot(vector, vector)) * vector)
     , _normal(vector)
-    , material(color)
+    , _material(material)
 {}
 
 const Point3D& Plane::GetOrigin() const
@@ -43,5 +43,5 @@ Direction3D Plane::GetNormal(const Point3D&) const
 
 Material Plane::GetMaterial(const Point3D&) const
 {
-    return material;
+    return _material;
 }

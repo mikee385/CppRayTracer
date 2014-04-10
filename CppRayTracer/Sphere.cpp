@@ -1,10 +1,10 @@
 #include "Sphere.h"
 #include <cmath>
 
-Sphere::Sphere(const Point3D& center, float radius, const ColorRGB& color)
+Sphere::Sphere(const Point3D& center, float radius, const Material& material)
     : _center(center)
     , _radius(radius)
-    , material(color)
+    , _material(material)
 {
     _radius2 = _radius * _radius;
 }
@@ -45,5 +45,5 @@ Direction3D Sphere::GetNormal(const Point3D& point) const
 
 Material Sphere::GetMaterial(const Point3D&) const
 {
-    return material;
+    return _material;
 }

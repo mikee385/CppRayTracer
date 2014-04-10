@@ -11,12 +11,11 @@ class Plane : public SceneObject
 private:
     Point3D _origin;
     Direction3D _normal;
+    Material _material;
 
 public:
-    Plane(const Point3D& origin, const Direction3D& normal, const ColorRGB& color);
-    Plane(float d, const Vector3D& vector, const ColorRGB& color);
-
-    Material material;
+    Plane(const Point3D& origin, const Direction3D& normal, const Material& material);
+    Plane(float d, const Vector3D& vector, const Material& material);
     
     const Point3D& GetOrigin() const;
     float GetD() const;
