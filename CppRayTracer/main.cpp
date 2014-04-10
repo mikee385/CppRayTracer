@@ -2,11 +2,15 @@
 #include "Sphere.h"
 #include "Plane.h"
 #include "PPM_Image.h"
+
 #include <chrono>
 #include <iostream>
 #include <memory>
 #include <vector>
+
 using namespace std;
+
+#define EXAMPLE_TO_RUN 3
 
 int main()
 {
@@ -16,123 +20,133 @@ int main()
     // Scratchapixel Tutorial
     //--------------------------------------------------------------------------
 
-    //const size_t width = 640;
-    //const size_t height = 480;
-    //const float fieldOfView = 30;
+#if EXAMPLE_TO_RUN == 1
 
-    //Scene scene(ColorRGB(2.0f, 2.0f, 2.0f), 1.0f, 5);
+    const size_t width = 640;
+    const size_t height = 480;
+    const float fieldOfView = 30;
 
-    //std::unique_ptr<Sphere> groundSphere(new Sphere(Point3D(0, -10004, 20), 10000, MaterialBuilder()
-    //    .Color(ColorRGB(0.20f, 0.20f, 0.20f))
-    //    .Diffuse(1.0f)
-    //    .Specular(0.0f)
-    //    .Shininess(0)
-    //    .Reflection(0.0f)
-    //    .Refraction(0.0f)
-    //    .RefractiveIndex(0.0f)));
-    //scene.AddObject(groundSphere.get());
+    Scene scene(ColorRGB(2.0f, 2.0f, 2.0f), 1.0f, 5);
 
-    //std::unique_ptr<Sphere> sphere1(new Sphere(Point3D(0, 0, 20), 4, MaterialBuilder()
-    //    .Color(ColorRGB(1.00f, 0.32f, 0.36f))
-    //    .Diffuse(1.0f)
-    //    .Specular(0.0f)
-    //    .Shininess(0)
-    //    .Reflection(1.0f)
-    //    .Refraction(0.5f)
-    //    .RefractiveIndex(1.1f)));
-    //scene.AddObject(sphere1.get());
+    std::unique_ptr<Sphere> groundSphere(new Sphere(Point3D(0, -10004, 20), 10000, MaterialBuilder()
+        .Color(ColorRGB(0.20f, 0.20f, 0.20f))
+        .Diffuse(1.0f)
+        .Specular(0.0f)
+        .Shininess(0)
+        .Reflection(0.0f)
+        .Refraction(0.0f)
+        .RefractiveIndex(0.0f)));
+    scene.AddObject(groundSphere.get());
 
-    //std::unique_ptr<Sphere> sphere2(new Sphere(Point3D(5, -1, 15), 2, MaterialBuilder()
-    //    .Color(ColorRGB(0.90f, 0.76f, 0.46f))
-    //    .Diffuse(1.0f)
-    //    .Specular(0.0f)
-    //    .Shininess(0)
-    //    .Reflection(1.0f)
-    //    .Refraction(0.0f)
-    //    .RefractiveIndex(0.0f)));
-    //scene.AddObject(sphere2.get());
+    std::unique_ptr<Sphere> sphere1(new Sphere(Point3D(0, 0, 20), 4, MaterialBuilder()
+        .Color(ColorRGB(1.00f, 0.32f, 0.36f))
+        .Diffuse(1.0f)
+        .Specular(0.0f)
+        .Shininess(0)
+        .Reflection(1.0f)
+        .Refraction(0.5f)
+        .RefractiveIndex(1.1f)));
+    scene.AddObject(sphere1.get());
 
-    //std::unique_ptr<Sphere> sphere3(new Sphere(Point3D(5, 0, 25), 3, MaterialBuilder()
-    //    .Color(ColorRGB(0.65f, 0.77f, 0.97f))
-    //    .Diffuse(1.0f)
-    //    .Specular(0.0f)
-    //    .Shininess(0)
-    //    .Reflection(1.0f)
-    //    .Refraction(0.0f)
-    //    .RefractiveIndex(0.0f)));
-    //scene.AddObject(sphere3.get());
+    std::unique_ptr<Sphere> sphere2(new Sphere(Point3D(5, -1, 15), 2, MaterialBuilder()
+        .Color(ColorRGB(0.90f, 0.76f, 0.46f))
+        .Diffuse(1.0f)
+        .Specular(0.0f)
+        .Shininess(0)
+        .Reflection(1.0f)
+        .Refraction(0.0f)
+        .RefractiveIndex(0.0f)));
+    scene.AddObject(sphere2.get());
 
-    //std::unique_ptr<Sphere> sphere4(new Sphere(Point3D(-5.5, 0, 15), 3, MaterialBuilder()
-    //    .Color(ColorRGB(0.90f, 0.90f, 0.90f))
-    //    .Diffuse(1.0f)
-    //    .Specular(0.0f)
-    //    .Shininess(0)
-    //    .Reflection(1.0f)
-    //    .Refraction(0.0f)
-    //    .RefractiveIndex(0.0f)));
-    //scene.AddObject(sphere4.get());
+    std::unique_ptr<Sphere> sphere3(new Sphere(Point3D(5, 0, 25), 3, MaterialBuilder()
+        .Color(ColorRGB(0.65f, 0.77f, 0.97f))
+        .Diffuse(1.0f)
+        .Specular(0.0f)
+        .Shininess(0)
+        .Reflection(1.0f)
+        .Refraction(0.0f)
+        .RefractiveIndex(0.0f)));
+    scene.AddObject(sphere3.get());
 
-    //std::unique_ptr<SceneLight> lightSource(new SceneLight(Point3D(0, 20, 30), 3.0f, ColorRGB(3.0f, 3.0f, 3.0f)));
-    //scene.AddLightSource(lightSource.get());
+    std::unique_ptr<Sphere> sphere4(new Sphere(Point3D(-5.5, 0, 15), 3, MaterialBuilder()
+        .Color(ColorRGB(0.90f, 0.90f, 0.90f))
+        .Diffuse(1.0f)
+        .Specular(0.0f)
+        .Shininess(0)
+        .Reflection(1.0f)
+        .Refraction(0.0f)
+        .RefractiveIndex(0.0f)));
+    scene.AddObject(sphere4.get());
 
-    //std::unique_ptr<Camera> camera(new Camera(width, height, fieldOfView, 1, Point3D::Origin, Point3D(0, 0, 1)));
-    //scene.AddCamera(camera.get());
+    std::unique_ptr<SceneLight> lightSource(new SceneLight(Point3D(0, 20, 30), 3.0f, ColorRGB(3.0f, 3.0f, 3.0f)));
+    scene.AddLightSource(lightSource.get());
 
-    //scene.Render();
+    std::unique_ptr<Camera> camera(new Camera(width, height, fieldOfView, 1, Point3D::Origin, Point3D(0, 0, 1)));
+    scene.AddCamera(camera.get());
 
-    //PPM_Image image("mine.ppm");
-    //image.Save(camera->GetImage());
+    scene.Render();
+
+    PPM_Image image("mine.ppm");
+    image.Save(camera->GetImage());
+
+#endif
 
     //--------------------------------------------------------------------------
     // flipcode Tutorial, version 1 & version 2
     //--------------------------------------------------------------------------
 
-    //const size_t width = 800;
-    //const size_t height = 600;
+#if EXAMPLE_TO_RUN == 2
 
-    //Scene scene(ColorRGB::Color_Black, 1.0f, 5);
+    const size_t width = 800;
+    const size_t height = 600;
 
-    //std::unique_ptr<Plane> groundPlane(new Plane(4.4f, Direction3D(0, 1, 0), MaterialBuilder()
-    //    .Color(ColorRGB(0.4f, 0.3f, 0.3f))
-    //    .Diffuse(1.0f)
-    //    .Specular(0.0f)
-    //    .Shininess(0)
-    //    .Reflection(0.0f)));
-    //scene.AddObject(groundPlane.get());
+    Scene scene(ColorRGB::Color_Black, 1.0f, 5);
 
-    //std::unique_ptr<Sphere> bigSphere(new Sphere(Point3D(1, -0.8f, 3), 2.5f, MaterialBuilder()
-    //    .Color(ColorRGB(0.7f, 0.7f, 0.7f))
-    //    .Diffuse(0.2f)
-    //    .Specular(0.8f)
-    //    .Shininess(20)
-    //    .Reflection(0.6f)));
-    //scene.AddObject(bigSphere.get());
+    std::unique_ptr<Plane> groundPlane(new Plane(4.4f, Direction3D(0, 1, 0), MaterialBuilder()
+        .Color(ColorRGB(0.4f, 0.3f, 0.3f))
+        .Diffuse(1.0f)
+        .Specular(0.0f)
+        .Shininess(0)
+        .Reflection(0.0f)));
+    scene.AddObject(groundPlane.get());
 
-    //std::unique_ptr<Sphere> smallSphere(new Sphere(Point3D(-5.5f, -0.5, 7), 2, MaterialBuilder()
-    //    .Color(ColorRGB(0.7f, 0.7f, 1.0f))
-    //    .Diffuse(0.1f)
-    //    .Specular(0.9f)
-    //    .Shininess(20)
-    //    .Reflection(1.0f)));
-    //scene.AddObject(smallSphere.get());
+    std::unique_ptr<Sphere> bigSphere(new Sphere(Point3D(1, -0.8f, 3), 2.5f, MaterialBuilder()
+        .Color(ColorRGB(0.7f, 0.7f, 0.7f))
+        .Diffuse(0.2f)
+        .Specular(0.8f)
+        .Shininess(20)
+        .Reflection(0.6f)));
+    scene.AddObject(bigSphere.get());
 
-    //std::unique_ptr<SceneLight> lightSource1(new SceneLight(Point3D(0, 5, 5), 0.1f, ColorRGB(0.6f, 0.6f, 0.6f)));
-    //scene.AddLightSource(lightSource1.get());
+    std::unique_ptr<Sphere> smallSphere(new Sphere(Point3D(-5.5f, -0.5, 7), 2, MaterialBuilder()
+        .Color(ColorRGB(0.7f, 0.7f, 1.0f))
+        .Diffuse(0.1f)
+        .Specular(0.9f)
+        .Shininess(20)
+        .Reflection(1.0f)));
+    scene.AddObject(smallSphere.get());
 
-    //std::unique_ptr<SceneLight> lightSource2(new SceneLight(Point3D(2, 5, 1), 0.1f, ColorRGB(0.7f, 0.7f, 0.9f)));
-    //scene.AddLightSource(lightSource2.get());
+    std::unique_ptr<SceneLight> lightSource1(new SceneLight(Point3D(0, 5, 5), 0.1f, ColorRGB(0.6f, 0.6f, 0.6f)));
+    scene.AddLightSource(lightSource1.get());
 
-    //std::unique_ptr<Camera> camera(new Camera(width, height, 8, 6, 5, Point3D(0, 0, -5), Point3D(0, 0, 1)));
-    //scene.AddCamera(camera.get());
+    std::unique_ptr<SceneLight> lightSource2(new SceneLight(Point3D(2, 5, 1), 0.1f, ColorRGB(0.7f, 0.7f, 0.9f)));
+    scene.AddLightSource(lightSource2.get());
 
-    //scene.Render();
+    std::unique_ptr<Camera> camera(new Camera(width, height, 8, 6, 5, Point3D(0, 0, -5), Point3D(0, 0, 1)));
+    scene.AddCamera(camera.get());
 
-    //PPM_Image image("mine.ppm");
-    //image.Save(camera->GetImage());
+    scene.Render();
+
+    PPM_Image image("mine.ppm");
+    image.Save(camera->GetImage());
+
+#endif
 
     //--------------------------------------------------------------------------
     // flipcode Tutorial, version 3
     //--------------------------------------------------------------------------
+
+#if EXAMPLE_TO_RUN == 3
 
     const size_t width = 800;
     const size_t height = 600;
@@ -231,6 +245,8 @@ int main()
 
     PPM_Image image("mine.ppm");
     image.Save(camera->GetImage());
+
+#endif
 
     //--------------------------------------------------------------------------
 
