@@ -7,7 +7,7 @@
 #include "SceneObject.h"
 #include "Sphere.h"
 
-class SceneLight : public SceneObject
+class SceneLight
 {
 private:
     Sphere _sphere;
@@ -17,11 +17,9 @@ public:
 
     const Point3D& GetCenter() const;
     float GetRadius() const;
-
-    virtual IntersectResult Intersect(const Ray3D& ray) const;
-
-    virtual Direction3D GetNormal(const Point3D& point) const;
-    virtual Material GetMaterial(const Point3D& point) const;
+    Material GetMaterial(const Point3D& point) const;
+    
+    operator const SceneObject&() const;
 };
 
 #endif

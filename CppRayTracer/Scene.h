@@ -11,13 +11,24 @@
 class Scene
 {
 private:
-    struct SceneItem
+    struct InternalObject
     {
+        size_t Index;
         const SceneObject *Object;
         bool IsLight;
 
-        SceneItem(const SceneObject* object, bool isLight)
-            : Object(object), IsLight(isLight)
+        InternalObject(size_t index, const SceneObject* object, bool isLight)
+            : Index(index), Object(object), IsLight(isLight)
+        {}
+    };
+
+    struct InternalLight
+    {
+        size_t Index;
+        const SceneLight *Light;
+
+        InternalLight(size_t index, const SceneLight* light)
+            : Index(index), Light(light)
         {}
     };
 
@@ -35,7 +46,8 @@ private:
     float _refractiveIndex;
     size_t _maxRayDepth;
 
-    std::vector<SceneItem> _items;
+    std::vector<InternalObject> _items;
+    std::vector<InternalLight> _lights;
 
     TraceResult Trace(const Ray3D& ray, size_t depth);
 

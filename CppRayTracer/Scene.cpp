@@ -21,12 +21,17 @@ Scene::Scene(const ColorRGB& backgroundColor, float refractiveIndex, size_t maxR
 
 void Scene::AddLightSource(const SceneLight* light)
 {
-    _items.push_back(SceneItem(light, true));
+    const SceneObject& object = *light;
+
+    size_t index = _items.size();
+    _items.push_back(InternalObject(index, &object, true));
+    _lights.push_back(InternalLight(index, light));
 }
 
 void Scene::AddObject(const SceneObject* object)
 {
-    _items.push_back(SceneItem(object, false));
+    size_t index = _items.size();
+    _items.push_back(InternalObject(index, object, false));
 }
 
 void Scene::Render(Camera& camera)
@@ -111,10 +116,10 @@ void Scene::Render(Camera& camera)
 Scene::TraceResult Scene::Trace(const Ray3D& ray, size_t depth)
 {
     IntersectResult nearestIntersection(NO_INTERSECTION, 0.0f);
-    SceneItem nearestItem(NULL, false);
+    InternalObject nearestItem(0, NULL, false);
 
     // Find the nearest object that the ray intersects.
-    for (std::vector<SceneItem>::const_iterator item = _items.begin(), end = _items.end(); item != end; ++item)
+    for (std::vector<InternalObject>::const_iterator item = _items.begin(), end = _items.end(); item != end; ++item)
     {
         IntersectResult currentIntersection = item->Object->Intersect(ray);
         if (currentIntersection.Type != NO_INTERSECTION)
@@ -193,54 +198,51 @@ Scene::TraceResult Scene::Trace(const Ray3D& ray, size_t depth)
     }
 
     // Calculate the color from each light in the scene.
-    for (std::vector<SceneItem>::const_iterator item = _items.begin(), end = _items.end(); item != end; ++item)
+    for (std::vector<InternalLight>::const_iterator lightItem = _lights.begin(), end = _lights.end(); lightItem != end; ++lightItem)
     {
-        if (item->IsLight)
-        {
-            const SceneLight *light = (const SceneLight *)item->Object;
-            ColorRGB lightColor = light->GetMaterial(point).Color;
-            Vector3D vectorToLight = Vector3D(point, light->GetCenter());
-            float distanceToLight = vectorToLight.Magnitude();
-            Direction3D directionToLight = vectorToLight.ToUnit();
+        const SceneLight *light = lightItem->Light;
+        ColorRGB lightColor = light->GetMaterial(point).Color;
+        Vector3D vectorToLight = Vector3D(point, light->GetCenter());
+        float distanceToLight = vectorToLight.Magnitude();
+        Direction3D directionToLight = vectorToLight.ToUnit();
 
-            // Calculate the shading from the light.
-            float shade = 1.0f;
-            Point3D nearbyPoint = point.Translate(directionToLight, Bias);
-            Ray3D shadowRay = Ray3D(nearbyPoint, directionToLight);
-            for (std::vector<SceneItem>::const_iterator shadowItem = _items.begin(), shadowEnd = _items.end(); shadowItem != shadowEnd; ++shadowItem)
+        // Calculate the shading from the light.
+        float shade = 1.0f;
+        Point3D nearbyPoint = point.Translate(directionToLight, Bias);
+        Ray3D shadowRay = Ray3D(nearbyPoint, directionToLight);
+        for (std::vector<InternalObject>::const_iterator shadowItem = _items.begin(), shadowEnd = _items.end(); shadowItem != shadowEnd; ++shadowItem)
+        {
+            if (shadowItem->Index != lightItem->Index)
             {
-                if (shadowItem != item)
+                IntersectResult shadowResult = shadowItem->Object->Intersect(shadowRay);
+                if (shadowResult.Type != NO_INTERSECTION && shadowResult.Distance < distanceToLight)
                 {
-                    IntersectResult shadowResult = shadowItem->Object->Intersect(shadowRay);
-                    if (shadowResult.Type != NO_INTERSECTION && shadowResult.Distance < distanceToLight)
-                    {
-                        shade = 0.0f;
-                        break;
-                    }
+                    shade = 0.0f;
+                    break;
                 }
             }
+        }
 
-            if (shade != 0.0f)
+        if (shade != 0.0f)
+        {
+            // Calculate the diffusive lighting from the light.
+            float diffuse = surfaceMaterial.Diffuse;
+            if (diffuse > 0.0f)
             {
-                // Calculate the diffusive lighting from the light.
-                float diffuse = surfaceMaterial.Diffuse;
-                if (diffuse > 0.0f)
-                {
-                    float percentageOfLight = Dot(normal, directionToLight);
-                    if (percentageOfLight > 0.0f)
-                        totalRayColor += shade * diffuse * percentageOfLight * lightColor * surfaceMaterial.Color;
-                }
+                float percentageOfLight = Dot(normal, directionToLight);
+                if (percentageOfLight > 0.0f)
+                    totalRayColor += shade * diffuse * percentageOfLight * lightColor * surfaceMaterial.Color;
+            }
 
-                // Calculate the specular lighting from the light.
-                float specular = surfaceMaterial.Specular;
-                int shininess = surfaceMaterial.Shininess;
-                if (specular > 0.0f && shininess > 0)
-                {
-                    Direction3D reflectedDirection = (directionToLight - 2.0f * Dot(directionToLight, normal) * normal).ToUnit();
-                    float percentageOfLight = Dot(ray.Direction, reflectedDirection);
-                    if (percentageOfLight > 0.0f)
-                        totalRayColor += shade * specular * std::pow(percentageOfLight, shininess) * lightColor;
-                }
+            // Calculate the specular lighting from the light.
+            float specular = surfaceMaterial.Specular;
+            int shininess = surfaceMaterial.Shininess;
+            if (specular > 0.0f && shininess > 0)
+            {
+                Direction3D reflectedDirection = (directionToLight - 2.0f * Dot(directionToLight, normal) * normal).ToUnit();
+                float percentageOfLight = Dot(ray.Direction, reflectedDirection);
+                if (percentageOfLight > 0.0f)
+                    totalRayColor += shade * specular * std::pow(percentageOfLight, shininess) * lightColor;
             }
         }
     }
