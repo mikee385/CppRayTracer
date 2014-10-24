@@ -81,9 +81,7 @@ int main()
     scene.AddLightSource(&lightSource);
 
     Camera camera(width, height, fieldOfView, 1, Point3D::Origin, Point3D(0, 0, 1));
-    scene.AddCamera(&camera);
-
-    scene.Render();
+    scene.Render(camera);
 
     PPM_Image image("mine.ppm");
     image.Save(camera.GetImage());
@@ -132,9 +130,7 @@ int main()
     scene.AddLightSource(&lightSource2);
 
     Camera camera(width, height, 8, 6, 5, Point3D(0, 0, -5), Point3D(0, 0, 1));
-    scene.AddCamera(&camera);
-
-    scene.Render();
+    scene.Render(camera);
 
     PPM_Image image("mine.ppm");
     image.Save(camera.GetImage());
@@ -233,15 +229,11 @@ int main()
                 .RefractiveIndex(0.0f));
         }
     }
-    for (std::vector<Sphere>::const_iterator gridSphere = gridSpheres.begin(), end = gridSpheres.end(); gridSphere != end; ++gridSphere)
-    {
-        scene.AddObject(&(*(gridSphere)));
-    }
+    for (const Sphere& gridSphere : gridSpheres)
+        scene.AddObject(&gridSphere);
 
     Camera camera(width, height, 8, 6, 5, Point3D(0, 0, -5), Point3D(0, 0, 1));
-    scene.AddCamera(&camera);
-
-    scene.Render();
+    scene.Render(camera);
 
     PPM_Image image("mine.ppm");
     image.Save(camera.GetImage());

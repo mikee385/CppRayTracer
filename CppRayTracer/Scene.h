@@ -35,7 +35,6 @@ private:
     float _refractiveIndex;
     size_t _maxRayDepth;
 
-    std::vector<Camera*> _cameras;
     std::vector<SceneItem> _items;
 
     TraceResult Trace(const Ray3D& ray, size_t depth);
@@ -43,11 +42,10 @@ private:
 public:
     Scene(const ColorRGB& backgroundColor, float refractiveIndex, size_t maxRayDepth);
 
-    void AddCamera(Camera* camera);
     void AddLightSource(const SceneLight* light);
     void AddObject(const SceneObject* object);
 
-    void Render();
+    void Render(Camera& camera);
 };
 
 #endif

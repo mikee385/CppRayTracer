@@ -19,11 +19,6 @@ Scene::Scene(const ColorRGB& backgroundColor, float refractiveIndex, size_t maxR
 {
 }
 
-void Scene::AddCamera(Camera* camera)
-{
-    _cameras.push_back(camera);
-}
-
 void Scene::AddLightSource(const SceneLight* light)
 {
     _items.push_back(SceneItem(light, true));
@@ -34,85 +29,80 @@ void Scene::AddObject(const SceneObject* object)
     _items.push_back(SceneItem(object, false));
 }
 
-void Scene::Render()
+void Scene::Render(Camera& camera)
 {
-    for (std::vector<Camera*>::iterator camera_ptr = _cameras.begin(), end = _cameras.end(); camera_ptr != end; ++camera_ptr)
+    const size_t width = camera.GetImage().GetWidth();
+    const size_t height = camera.GetImage().GetHeight();
+
+    // Initial Pixel Coloring
+    for (size_t row = 0; row < height; ++row)
     {
-        Camera& camera = *(*(camera_ptr));
-
-        const size_t width = camera.GetImage().GetWidth();
-        const size_t height = camera.GetImage().GetHeight();
-
-        // Initial Pixel Coloring
-        for (size_t row = 0; row < height; ++row)
+        for (size_t column = 0; column < width; ++column)
         {
-            for (size_t column = 0; column < width; ++column)
-            {
-                Ray3D ray = camera.GetPrimaryRay(row, column);
-                TraceResult result = Trace(ray, 0);
+            Ray3D ray = camera.GetPrimaryRay(row, column);
+            TraceResult result = Trace(ray, 0);
 
-                result.Color.Red = std::min(result.Color.Red, 1.0f);
-                result.Color.Green = std::min(result.Color.Green, 1.0f);
-                result.Color.Blue = std::min(result.Color.Blue, 1.0f);
+            result.Color.Red = std::min(result.Color.Red, 1.0f);
+            result.Color.Green = std::min(result.Color.Green, 1.0f);
+            result.Color.Blue = std::min(result.Color.Blue, 1.0f);
 
-                camera.SetPixel(row, column, result.Color);
-            }
+            camera.SetPixel(row, column, result.Color);
         }
+    }
 
-        // Edge Detection
-        Table<bool> isEdge(width, height);
-        for (size_t row = 1; row < height - 1; ++row)
+    // Edge Detection
+    Table<bool> isEdge(width, height);
+    for (size_t row = 1; row < height - 1; ++row)
+    {
+        for (size_t column = 1; column < width - 1; ++column)
         {
-            for (size_t column = 1; column < width - 1; ++column)
-            {
-                ColorRGB p1 = camera.GetPixel(row - 1, column - 1);
-                ColorRGB p2 = camera.GetPixel(row - 1, column);
-                ColorRGB p3 = camera.GetPixel(row - 1, column + 1);
-                ColorRGB p4 = camera.GetPixel(row, column - 1);
-                ColorRGB p6 = camera.GetPixel(row, column + 1);
-                ColorRGB p7 = camera.GetPixel(row + 1, column - 1);
-                ColorRGB p8 = camera.GetPixel(row + 1, column);
-                ColorRGB p9 = camera.GetPixel(row + 1, column + 1);
+            ColorRGB p1 = camera.GetPixel(row - 1, column - 1);
+            ColorRGB p2 = camera.GetPixel(row - 1, column);
+            ColorRGB p3 = camera.GetPixel(row - 1, column + 1);
+            ColorRGB p4 = camera.GetPixel(row, column - 1);
+            ColorRGB p6 = camera.GetPixel(row, column + 1);
+            ColorRGB p7 = camera.GetPixel(row + 1, column - 1);
+            ColorRGB p8 = camera.GetPixel(row + 1, column);
+            ColorRGB p9 = camera.GetPixel(row + 1, column + 1);
 
-                float r = CalculateGradient(p1.Red, p2.Red, p3.Red, p4.Red, p6.Red, p7.Red, p8.Red, p9.Red);
-                float g = CalculateGradient(p1.Green, p2.Green, p3.Green, p4.Green, p6.Green, p7.Green, p8.Green, p9.Green);
-                float b = CalculateGradient(p1.Blue, p2.Blue, p3.Blue, p4.Blue, p6.Blue, p7.Blue, p8.Blue, p9.Blue);
+            float r = CalculateGradient(p1.Red, p2.Red, p3.Red, p4.Red, p6.Red, p7.Red, p8.Red, p9.Red);
+            float g = CalculateGradient(p1.Green, p2.Green, p3.Green, p4.Green, p6.Green, p7.Green, p8.Green, p9.Green);
+            float b = CalculateGradient(p1.Blue, p2.Blue, p3.Blue, p4.Blue, p6.Blue, p7.Blue, p8.Blue, p9.Blue);
 
-                if ((r + b + g) > 0.5f)
-                    isEdge.Set(row, column, true);
-                else
-                    isEdge.Set(row, column, false);
-            }
+            if ((r + b + g) > 0.5f)
+                isEdge.Set(row, column, true);
+            else
+                isEdge.Set(row, column, false);
         }
+    }
 
-        // Anti-aliasing
-        const size_t subWidth = 3;
-        const size_t subHeight = 3;
-        const size_t subSize = subWidth * subHeight;
-        Table<Ray3D> subRays(subWidth, subHeight, Ray3D(Point3D::Origin, Direction3D::UnitX));
-        for (size_t row = 1; row < height - 1; ++row)
+    // Anti-aliasing
+    const size_t subWidth = 3;
+    const size_t subHeight = 3;
+    const size_t subSize = subWidth * subHeight;
+    Table<Ray3D> subRays(subWidth, subHeight, Ray3D(Point3D::Origin, Direction3D::UnitX));
+    for (size_t row = 1; row < height - 1; ++row)
+    {
+        for (size_t column = 1; column < width - 1; ++column)
         {
-            for (size_t column = 1; column < width - 1; ++column)
+            if (isEdge.Get(row, column))
             {
-                if (isEdge.Get(row, column))
+                ColorRGB pixelColor = ColorRGB::Color_Black;
+
+                camera.GetSubRays(row, column, subRays);
+                for (size_t subRow = 0; subRow < subHeight; ++subRow)
                 {
-                    ColorRGB pixelColor = ColorRGB::Color_Black;
-
-                    camera.GetSubRays(row, column, subRays);
-                    for (size_t subRow = 0; subRow < subHeight; ++subRow)
+                    for (size_t subColumn = 0; subColumn < subWidth; ++subColumn)
                     {
-                        for (size_t subColumn = 0; subColumn < subWidth; ++subColumn)
-                        {
-                            TraceResult result = Trace(subRays.Get(subRow, subColumn), 0);
+                        TraceResult result = Trace(subRays.Get(subRow, subColumn), 0);
 
-                            pixelColor.Red += result.Color.Red / subSize;
-                            pixelColor.Green += result.Color.Green / subSize;
-                            pixelColor.Blue += result.Color.Blue / subSize;
-                        }
+                        pixelColor.Red += result.Color.Red / subSize;
+                        pixelColor.Green += result.Color.Green / subSize;
+                        pixelColor.Blue += result.Color.Blue / subSize;
                     }
-
-                    camera.SetPixel(row, column, pixelColor);
                 }
+
+                camera.SetPixel(row, column, pixelColor);
             }
         }
     }
