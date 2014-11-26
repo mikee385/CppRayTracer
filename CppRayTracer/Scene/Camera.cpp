@@ -2,6 +2,8 @@
 #include <cmath>
 #include <stdexcept>
 
+using namespace geometry;
+
 Matrix3D ComputeOrientation(const Point3D& position, const Point3D& lookAtPoint)
 {
     Direction3D z = Direction3D(position, lookAtPoint);

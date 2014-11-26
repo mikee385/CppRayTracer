@@ -24,10 +24,10 @@ struct IntersectResult
 class SceneObject
 {
 public:
-    virtual IntersectResult Intersect(const Ray3D& ray) const = 0;
+    virtual IntersectResult Intersect(const geometry::Ray3D& ray) const = 0;
 
-    virtual Direction3D GetNormal(const Point3D& point) const = 0;
-    virtual Material GetMaterial(const Point3D& point) const = 0;
+    virtual geometry::Direction3D GetNormal(const geometry::Point3D& point) const = 0;
+    virtual Material GetMaterial(const geometry::Point3D& point) const = 0;
 
     virtual ~SceneObject() {}
 };

@@ -1,5 +1,7 @@
 #include "SceneLight.h"
 
+using namespace geometry;
+
 SceneLight::SceneLight(const Point3D& center, float radius, const ColorRGB& color)
     : _sphere(center, radius, color)
 {}

@@ -49,7 +49,7 @@ private:
     std::vector<InternalObject> _items;
     std::vector<InternalLight> _lights;
 
-    TraceResult Trace(const Ray3D& ray, size_t depth);
+    TraceResult Trace(const geometry::Ray3D& ray, size_t depth);
 
 public:
     Scene(const ColorRGB& backgroundColor, float refractiveIndex, size_t maxRayDepth);

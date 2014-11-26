@@ -13,11 +13,11 @@ private:
     Sphere _sphere;
 
 public:
-    SceneLight(const Point3D& center, float radius, const ColorRGB& color);
+    SceneLight(const geometry::Point3D& center, float radius, const ColorRGB& color);
 
-    const Point3D& GetCenter() const;
+    const geometry::Point3D& GetCenter() const;
     float GetRadius() const;
-    Material GetMaterial(const Point3D& point) const;
+    Material GetMaterial(const geometry::Point3D& point) const;
     
     operator const SceneObject&() const;
 };

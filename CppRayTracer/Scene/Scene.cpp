@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <cmath>
 
+using namespace geometry;
+
 static const float Bias = 1.0e-4f;
 
 static float CalculateGradient(float p1, float p2, float p3,

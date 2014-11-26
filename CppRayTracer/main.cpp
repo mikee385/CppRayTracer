@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 
+using namespace geometry;
 using namespace std;
 
 #define EXAMPLE_TO_RUN 3

@@ -1,6 +1,8 @@
 #include "Plane.h"
 #include <cmath>
 
+using namespace geometry;
+
 Plane::Plane(const Point3D& origin, const Direction3D& normal, const Material& material)
     : _origin(origin)
     , _normal(normal)

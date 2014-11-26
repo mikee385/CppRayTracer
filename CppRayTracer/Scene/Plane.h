@@ -9,21 +9,21 @@
 class Plane : public SceneObject
 {
 private:
-    Point3D _origin;
-    Direction3D _normal;
+    geometry::Point3D _origin;
+    geometry::Direction3D _normal;
     Material _material;
 
 public:
-    Plane(const Point3D& origin, const Direction3D& normal, const Material& material);
-    Plane(float d, const Vector3D& vector, const Material& material);
+    Plane(const geometry::Point3D& origin, const geometry::Direction3D& normal, const Material& material);
+    Plane(float d, const geometry::Vector3D& vector, const Material& material);
     
-    const Point3D& GetOrigin() const;
+    const geometry::Point3D& GetOrigin() const;
     float GetD() const;
 
-    virtual IntersectResult Intersect(const Ray3D& ray) const;
+    virtual IntersectResult Intersect(const geometry::Ray3D& ray) const;
 
-    virtual Direction3D GetNormal(const Point3D& point) const;
-    virtual Material GetMaterial(const Point3D& point) const;
+    virtual geometry::Direction3D GetNormal(const geometry::Point3D& point) const;
+    virtual Material GetMaterial(const geometry::Point3D& point) const;
 };
 
 #endif

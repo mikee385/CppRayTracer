@@ -1,6 +1,8 @@
 #include "Sphere.h"
 #include <cmath>
 
+using namespace geometry;
+
 Sphere::Sphere(const Point3D& center, float radius, const Material& material)
     : _center(center)
     , _radius(radius)
