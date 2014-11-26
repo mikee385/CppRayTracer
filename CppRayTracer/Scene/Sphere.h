@@ -1,10 +1,10 @@
 #ifndef SPHERE_HEADER_GUARD
 #define SPHERE_HEADER_GUARD
 
-#include "ColorRGB.h"
-#include "Geometry.h"
-#include "Material.h"
-#include "SceneObject.h"
+#include "../ColorRGB.h"
+#include "../Material.h"
+#include "../Geometry/Geometry.h"
+#include "../Scene/SceneObject.h"
 
 class Sphere : public SceneObject
 {

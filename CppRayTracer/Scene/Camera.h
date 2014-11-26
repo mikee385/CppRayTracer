@@ -1,9 +1,9 @@
 #ifndef CAMERA_HEADER_GUARD
 #define CAMERA_HEADER_GUARD
 
-#include "ColorRGB.h"
-#include "Geometry.h"
-#include "Table.h"
+#include "../ColorRGB.h"
+#include "../Table.h"
+#include "../Geometry/Geometry.h"
 
 class Camera
 {

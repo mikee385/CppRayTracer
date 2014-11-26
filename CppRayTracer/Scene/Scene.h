@@ -1,11 +1,11 @@
 #ifndef SCENE_HEADER_GUARD
 #define SCENE_HEADER_GUARD
 
-#include "Camera.h"
-#include "ColorRGB.h"
-#include "SceneLight.h"
-#include "SceneObject.h"
-#include "Table.h"
+#include "../ColorRGB.h"
+#include "../Table.h"
+#include "../Scene/SceneObject.h"
+#include "../Scene/SceneLight.h"
+#include "../Scene/Camera.h"
 #include <vector>
 
 class Scene

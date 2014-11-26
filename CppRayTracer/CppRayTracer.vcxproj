@@ -148,28 +148,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ColorRGB.cpp" />
-    <ClCompile Include="Geometry.cpp" />
+    <ClCompile Include="Geometry\Geometry.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="PPM_Image.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Plane.cpp" />
-    <ClCompile Include="SceneLight.cpp" />
-    <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Scene\Camera.cpp" />
+    <ClCompile Include="Scene\Plane.cpp" />
+    <ClCompile Include="Scene\Scene.cpp" />
+    <ClCompile Include="Scene\SceneLight.cpp" />
+    <ClCompile Include="Scene\Sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorRGB.h" />
-    <ClInclude Include="Geometry.h" />
+    <ClInclude Include="Geometry\Geometry.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="PPM_Image.h" />
+    <ClInclude Include="Scene\Camera.h" />
+    <ClInclude Include="Scene\Plane.h" />
+    <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="Scene\SceneLight.h" />
+    <ClInclude Include="Scene\SceneObject.h" />
+    <ClInclude Include="Scene\Sphere.h" />
     <ClInclude Include="Table.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="SceneLight.h" />
-    <ClInclude Include="SceneObject.h" />
-    <ClInclude Include="Plane.h" />
-    <ClInclude Include="Sphere.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,11 +1,11 @@
 #ifndef SCENE_LIGHT_HEADER_GUARD
 #define SCENE_LIGHT_HEADER_GUARD
 
-#include "ColorRGB.h"
-#include "Geometry.h"
-#include "Material.h"
-#include "SceneObject.h"
-#include "Sphere.h"
+#include "../ColorRGB.h"
+#include "../Material.h"
+#include "../Geometry/Geometry.h"
+#include "../Scene/SceneObject.h"
+#include "../Scene/Sphere.h"
 
 class SceneLight
 {

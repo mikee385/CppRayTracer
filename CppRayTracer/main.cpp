@@ -1,6 +1,6 @@
-#include "Scene.h"
-#include "Sphere.h"
-#include "Plane.h"
+#include "Scene/Scene.h"
+#include "Scene/Sphere.h"
+#include "Scene/Plane.h"
 #include "PPM_Image.h"
 
 #include <chrono>
