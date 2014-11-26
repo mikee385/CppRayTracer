@@ -26,6 +26,7 @@ int main()
     // Scratchapixel Tutorial
     //--------------------------------------------------------------------------
 
+    chrono::system_clock::time_point scene_setup_start = chrono::high_resolution_clock::now();
 #if EXAMPLE_TO_RUN == 1
 
     ColorRGB backgroundColor(2.0f, 2.0f, 2.0f);
@@ -238,17 +239,27 @@ int main()
 
 #endif
 
+    chrono::system_clock::time_point scene_setup_end = chrono::high_resolution_clock::now();
+    chrono::milliseconds elapsed = chrono::duration_cast<chrono::milliseconds>(scene_setup_end - scene_setup_start);
+    cout << "Scene Setup     : " << elapsed.count() << endl;
+
     Table<ColorRGB> pixelTable = render(scene, camera);
+
+    chrono::system_clock::time_point image_saving_start = chrono::high_resolution_clock::now();
 
     std::ostringstream stream;
     stream << "example" << EXAMPLE_TO_RUN << ".ppm";
     PPM_Image image(stream.str());
     image.Save(pixelTable);
 
+    chrono::system_clock::time_point image_saving_end= chrono::high_resolution_clock::now();
+    elapsed = chrono::duration_cast<chrono::milliseconds>(image_saving_end - image_saving_start);
+    cout << "Image Saving    : " << elapsed.count() << endl;
+
     //--------------------------------------------------------------------------
 
     chrono::system_clock::time_point end = chrono::high_resolution_clock::now();
-    chrono::milliseconds elapsed = chrono::duration_cast<chrono::milliseconds>(end - start);
+    elapsed = chrono::duration_cast<chrono::milliseconds>(end - start);
     cout << "Elapsed time: " << elapsed.count() << endl;
     system("pause");
 
@@ -262,6 +273,7 @@ Table<ColorRGB> render(const Scene& scene, const Camera& camera)
     Table<ColorRGB> pixelTable(width, height);
 
     // Initial Pixel Coloring
+    chrono::system_clock::time_point intital_coloring_start = chrono::high_resolution_clock::now();
     for (size_t row = 0; row < height; ++row)
     {
         for (size_t column = 0; column < width; ++column)
@@ -276,8 +288,10 @@ Table<ColorRGB> render(const Scene& scene, const Camera& camera)
             pixelTable.Set(row, column, result.Color);
         }
     }
+    chrono::system_clock::time_point initial_coloring_end = chrono::high_resolution_clock::now();
 
     // Edge Detection
+    chrono::system_clock::time_point edge_detection_start = chrono::high_resolution_clock::now();
     Table<bool> isEdge(width, height);
     for (size_t row = 1; row < height - 1; ++row)
     {
@@ -302,8 +316,10 @@ Table<ColorRGB> render(const Scene& scene, const Camera& camera)
                 isEdge.Set(row, column, false);
         }
     }
+    chrono::system_clock::time_point edge_detection_end = chrono::high_resolution_clock::now();
 
     // Anti-aliasing
+    chrono::system_clock::time_point anti_aliasing_start = chrono::high_resolution_clock::now();
     const size_t subWidth = 3;
     const size_t subHeight = 3;
     const size_t subSize = subWidth * subHeight;
@@ -333,6 +349,14 @@ Table<ColorRGB> render(const Scene& scene, const Camera& camera)
             }
         }
     }
+    chrono::system_clock::time_point anti_aliasing_end = chrono::high_resolution_clock::now();
+
+    chrono::milliseconds elapsed = chrono::duration_cast<chrono::milliseconds>(initial_coloring_end - intital_coloring_start);
+    cout << "Initial Coloring: " << elapsed.count() << endl;
+    elapsed = chrono::duration_cast<chrono::milliseconds>(edge_detection_end - edge_detection_start);
+    cout << "Edge Detection  : " << elapsed.count() << endl;
+    elapsed = chrono::duration_cast<chrono::milliseconds>(anti_aliasing_end - anti_aliasing_start);
+    cout << "Anti-aliasing   : " << elapsed.count() << endl;
 
     return pixelTable;
 }
