@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <chrono>
 #include <iostream>
+#include <sstream>
 #include <vector>
 
 using namespace geometry;
@@ -14,7 +15,7 @@ using namespace std;
 
 #define EXAMPLE_TO_RUN 3
 
-void render(const Scene& scene, Camera& camera);
+Table<ColorRGB> render(const Scene& scene, const Camera& camera);
 float calculateGradient(float p1, float p2, float p3, float p4, float p6, float p7, float p8, float p9);
 
 int main()
@@ -88,10 +89,10 @@ int main()
     SceneLight lightSource(Point3D(0, 20, 30), 3.0f, ColorRGB(3.0f, 3.0f, 3.0f));
     scene.AddLightSource(&lightSource);
     
-    const size_t width = 640;
+    const size_t imageWidth = 640;
     const size_t height = 480;
     const float fieldOfView = 30;
-    Camera camera(width, height, fieldOfView, 1, Point3D::Origin, Point3D(0, 0, 1));
+    Camera camera(imageWidth, imageHeight, fieldOfView, 1, Point3D::Origin, Point3D(0, 0, 1));
 
 #endif
 
@@ -133,9 +134,9 @@ int main()
     SceneLight lightSource2(Point3D(2, 5, 1), 0.1f, ColorRGB(0.7f, 0.7f, 0.9f));
     scene.AddLightSource(&lightSource2);
     
-    const size_t width = 800;
+    const size_t imageWidth = 800;
     const size_t height = 600;
-    Camera camera(width, height, 8, 6, 5, Point3D(0, 0, -5), Point3D(0, 0, 1));
+    Camera camera(imageWidth, imageHeight, 8, 6, 5, Point3D(0, 0, -5), Point3D(0, 0, 1));
 
 #endif
 
@@ -231,16 +232,18 @@ int main()
     for (const Sphere& gridSphere : gridSpheres)
         scene.AddObject(&gridSphere);
     
-    const size_t width = 800;
-    const size_t height = 600;
-    Camera camera(width, height, 8, 6, 5, Point3D(0, 0, -5), Point3D(0, 0, 1));
+    const size_t imageWidth = 800;
+    const size_t imageHeight = 600;
+    Camera camera(imageWidth, imageHeight, 8, 6, 5, Point3D(0, 0, -5), Point3D(0, 0, 1));
 
 #endif
 
-    render(scene, camera);
+    Table<ColorRGB> pixelTable = render(scene, camera);
 
-    PPM_Image image("mine.ppm");
-    image.Save(camera.GetImage());
+    std::ostringstream stream;
+    stream << "example" << EXAMPLE_TO_RUN << ".ppm";
+    PPM_Image image(stream.str());
+    image.Save(pixelTable);
 
     //--------------------------------------------------------------------------
 
@@ -252,10 +255,11 @@ int main()
     return 0;
 }
 
-void render(const Scene& scene, Camera& camera)
+Table<ColorRGB> render(const Scene& scene, const Camera& camera)
 {
-    const size_t width = camera.GetImage().GetWidth();
-    const size_t height = camera.GetImage().GetHeight();
+    const size_t width = camera.GetImageWidth();
+    const size_t height = camera.GetImageHeight();
+    Table<ColorRGB> pixelTable(width, height);
 
     // Initial Pixel Coloring
     for (size_t row = 0; row < height; ++row)
@@ -269,7 +273,7 @@ void render(const Scene& scene, Camera& camera)
             result.Color.Green = std::min(result.Color.Green, 1.0f);
             result.Color.Blue = std::min(result.Color.Blue, 1.0f);
 
-            camera.SetPixel(row, column, result.Color);
+            pixelTable.Set(row, column, result.Color);
         }
     }
 
@@ -279,14 +283,14 @@ void render(const Scene& scene, Camera& camera)
     {
         for (size_t column = 1; column < width - 1; ++column)
         {
-            ColorRGB p1 = camera.GetPixel(row - 1, column - 1);
-            ColorRGB p2 = camera.GetPixel(row - 1, column);
-            ColorRGB p3 = camera.GetPixel(row - 1, column + 1);
-            ColorRGB p4 = camera.GetPixel(row, column - 1);
-            ColorRGB p6 = camera.GetPixel(row, column + 1);
-            ColorRGB p7 = camera.GetPixel(row + 1, column - 1);
-            ColorRGB p8 = camera.GetPixel(row + 1, column);
-            ColorRGB p9 = camera.GetPixel(row + 1, column + 1);
+            ColorRGB p1 = pixelTable.Get(row - 1, column - 1);
+            ColorRGB p2 = pixelTable.Get(row - 1, column);
+            ColorRGB p3 = pixelTable.Get(row - 1, column + 1);
+            ColorRGB p4 = pixelTable.Get(row, column - 1);
+            ColorRGB p6 = pixelTable.Get(row, column + 1);
+            ColorRGB p7 = pixelTable.Get(row + 1, column - 1);
+            ColorRGB p8 = pixelTable.Get(row + 1, column);
+            ColorRGB p9 = pixelTable.Get(row + 1, column + 1);
 
             float r = calculateGradient(p1.Red, p2.Red, p3.Red, p4.Red, p6.Red, p7.Red, p8.Red, p9.Red);
             float g = calculateGradient(p1.Green, p2.Green, p3.Green, p4.Green, p6.Green, p7.Green, p8.Green, p9.Green);
@@ -325,10 +329,12 @@ void render(const Scene& scene, Camera& camera)
                     }
                 }
 
-                camera.SetPixel(row, column, pixelColor);
+                pixelTable.Set(row, column, pixelColor);
             }
         }
     }
+
+    return pixelTable;
 }
 
 float calculateGradient(float p1, float p2, float p3,

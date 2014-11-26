@@ -15,8 +15,7 @@ static Matrix3D ComputeOrientation(const Point3D& position, const Point3D& lookA
 namespace scene
 {
     Camera::Camera(size_t imageWidth, size_t imageHeight, float fieldOfView, float distanceToPlane, const Point3D& position, const Point3D& lookAtPoint)
-        : _image(imageWidth, imageHeight)
-        , _imageWidth(imageWidth)
+        : _imageWidth(imageWidth)
         , _imageHeight(imageHeight)
         , _distanceToPlane(distanceToPlane)
         , _position(position)
@@ -29,8 +28,7 @@ namespace scene
     }
 
     Camera::Camera(size_t imageWidth, size_t imageHeight, float planeWidth, float planeHeight, float distanceToPlane, const Point3D& position, const Point3D& lookAtPoint)
-        : _image(imageWidth, imageHeight)
-        , _imageWidth(imageWidth)
+        : _imageWidth(imageWidth)
         , _imageHeight(imageHeight)
         , _distanceToPlane(distanceToPlane)
         , _position(position)
@@ -40,11 +38,6 @@ namespace scene
         _yMax = planeHeight / 2.0f;
         _dx = planeWidth / imageWidth;
         _dy = planeHeight / imageHeight;
-    }
-
-    const Table<ColorRGB>& Camera::GetImage() const
-    {
-        return _image;
     }
 
     const Point3D& Camera::GetPosition() const
@@ -57,14 +50,14 @@ namespace scene
         return _orientation;
     }
 
-    void Camera::SetPosition(const Point3D& position)
+    size_t Camera::GetImageWidth() const
     {
-        _position = position;
+        return _imageWidth;
     }
 
-    void Camera::SetOrientation(const Matrix3D& orientation)
+    size_t Camera::GetImageHeight() const
     {
-        _orientation = orientation;
+        return _imageHeight;
     }
 
     Point3D Camera::GetPixelCenter(size_t row, size_t column) const
@@ -114,15 +107,5 @@ namespace scene
                 rays.Set(row, column, Ray3D(_position, rayDirection));
             }
         }
-    }
-
-    ColorRGB Camera::GetPixel(size_t row, size_t column) const
-    {
-        return _image.Get(row, column);
-    }
-
-    void Camera::SetPixel(size_t row, size_t column, const ColorRGB& pixel)
-    {
-        _image.Set(row, column, pixel);
     }
 }
