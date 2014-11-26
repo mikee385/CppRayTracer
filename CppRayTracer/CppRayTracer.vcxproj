@@ -148,7 +148,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ColorRGB.cpp" />
-    <ClCompile Include="Geometry\Geometry.cpp" />
+    <ClCompile Include="Geometry\Direction3D.cpp" />
+    <ClCompile Include="Geometry\Constants.cpp" />
+    <ClCompile Include="Geometry\Matrix3D.cpp" />
+    <ClCompile Include="Geometry\Point3D.cpp" />
+    <ClCompile Include="Geometry\Ray3D.cpp" />
+    <ClCompile Include="Geometry\Vector3D.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="PPM_Image.cpp" />

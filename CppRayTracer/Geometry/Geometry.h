@@ -81,7 +81,7 @@ namespace geometry
 
     bool operator==(const Vector3D& vector1, const Vector3D& vector2);
     bool operator!=(const Vector3D& vector1, const Vector3D& vector2);
-    bool operator>(const Vector3D& vector1, const Vector3D& vector2);
+    bool operator<(const Vector3D& vector1, const Vector3D& vector2);
     bool operator<=(const Vector3D& vector1, const Vector3D& vector2);
     bool operator>(const Vector3D& vector1, const Vector3D& vector2);
     bool operator>=(const Vector3D& vector1, const Vector3D& vector2);

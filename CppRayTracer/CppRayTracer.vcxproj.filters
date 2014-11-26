@@ -28,7 +28,22 @@
     <ClCompile Include="Scene\Sphere.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Geometry\Geometry.cpp">
+    <ClCompile Include="Geometry\Direction3D.cpp">
+      <Filter>Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Matrix3D.cpp">
+      <Filter>Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Point3D.cpp">
+      <Filter>Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Ray3D.cpp">
+      <Filter>Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Vector3D.cpp">
+      <Filter>Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Constants.cpp">
       <Filter>Geometry</Filter>
     </ClCompile>
   </ItemGroup>
