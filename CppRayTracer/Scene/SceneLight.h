@@ -7,19 +7,22 @@
 #include "../Scene/SceneObject.h"
 #include "../Scene/Sphere.h"
 
-class SceneLight
+namespace scene
 {
-private:
-    Sphere _sphere;
+    class SceneLight
+    {
+    private:
+        Sphere _sphere;
 
-public:
-    SceneLight(const geometry::Point3D& center, float radius, const ColorRGB& color);
+    public:
+        SceneLight(const geometry::Point3D& center, float radius, const ColorRGB& color);
 
-    const geometry::Point3D& GetCenter() const;
-    float GetRadius() const;
-    Material GetMaterial(const geometry::Point3D& point) const;
-    
-    operator const SceneObject&() const;
-};
+        const geometry::Point3D& GetCenter() const;
+        float GetRadius() const;
+        Material GetMaterial(const geometry::Point3D& point) const;
+
+        operator const SceneObject&() const;
+    };
+}
 
 #endif

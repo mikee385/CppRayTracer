@@ -8,6 +8,7 @@
 #include <vector>
 
 using namespace geometry;
+using namespace scene;
 using namespace std;
 
 #define EXAMPLE_TO_RUN 3

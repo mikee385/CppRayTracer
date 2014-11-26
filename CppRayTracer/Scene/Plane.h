@@ -6,24 +6,27 @@
 #include "../Geometry/Geometry.h"
 #include "../Scene/SceneObject.h"
 
-class Plane : public SceneObject
+namespace scene
 {
-private:
-    geometry::Point3D _origin;
-    geometry::Direction3D _normal;
-    Material _material;
+    class Plane : public SceneObject
+    {
+    private:
+        geometry::Point3D _origin;
+        geometry::Direction3D _normal;
+        Material _material;
 
-public:
-    Plane(const geometry::Point3D& origin, const geometry::Direction3D& normal, const Material& material);
-    Plane(float d, const geometry::Vector3D& vector, const Material& material);
-    
-    const geometry::Point3D& GetOrigin() const;
-    float GetD() const;
+    public:
+        Plane(const geometry::Point3D& origin, const geometry::Direction3D& normal, const Material& material);
+        Plane(float d, const geometry::Vector3D& vector, const Material& material);
 
-    virtual IntersectResult Intersect(const geometry::Ray3D& ray) const;
+        const geometry::Point3D& GetOrigin() const;
+        float GetD() const;
 
-    virtual geometry::Direction3D GetNormal(const geometry::Point3D& point) const;
-    virtual Material GetMaterial(const geometry::Point3D& point) const;
-};
+        virtual IntersectResult Intersect(const geometry::Ray3D& ray) const;
+
+        virtual geometry::Direction3D GetNormal(const geometry::Point3D& point) const;
+        virtual Material GetMaterial(const geometry::Point3D& point) const;
+    };
+}
 
 #endif
