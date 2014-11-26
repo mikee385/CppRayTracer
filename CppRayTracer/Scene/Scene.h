@@ -34,6 +34,19 @@ namespace scene
             {}
         };
 
+        ColorRGB _backgroundColor;
+        float _refractiveIndex;
+        size_t _maxRayDepth;
+
+        std::vector<InternalObject> _items;
+        std::vector<InternalLight> _lights;
+
+    public:
+        Scene(const ColorRGB& backgroundColor, float refractiveIndex, size_t maxRayDepth);
+
+        void AddLightSource(const SceneLight* light);
+        void AddObject(const SceneObject* object);
+
         struct TraceResult
         {
             ColorRGB Color;
@@ -44,22 +57,7 @@ namespace scene
             {}
         };
 
-        ColorRGB _backgroundColor;
-        float _refractiveIndex;
-        size_t _maxRayDepth;
-
-        std::vector<InternalObject> _items;
-        std::vector<InternalLight> _lights;
-
-        TraceResult Trace(const geometry::Ray3D& ray, size_t depth);
-
-    public:
-        Scene(const ColorRGB& backgroundColor, float refractiveIndex, size_t maxRayDepth);
-
-        void AddLightSource(const SceneLight* light);
-        void AddObject(const SceneObject* object);
-
-        void Render(Camera& camera);
+        TraceResult Trace(const geometry::Ray3D& ray, size_t depth) const;
     };
 }
 
