@@ -1,9 +1,8 @@
 #ifndef PLANE_HEADER_GUARD
 #define PLANE_HEADER_GUARD
 
-#include "../ColorRGB.h"
-#include "../Material.h"
 #include "../Geometry/Geometry.h"
+#include "../Material.h"
 #include "../Scene/SceneObject.h"
 
 namespace scene

@@ -1,7 +1,13 @@
+#include "ColorRGB.h"
+#include "Geometry/Geometry.h"
+#include "Image.h"
+#include "Material.h"
+#include "Scene/Camera.h"
 #include "Scene/Scene.h"
+#include "Scene/SceneLight.h"
 #include "Scene/Sphere.h"
 #include "Scene/Plane.h"
-#include "PPM_Image.h"
+#include "Table.h"
 
 #include <algorithm>
 #include <chrono>

@@ -2,8 +2,8 @@
 #define SCENE_LIGHT_HEADER_GUARD
 
 #include "../ColorRGB.h"
-#include "../Material.h"
 #include "../Geometry/Geometry.h"
+#include "../Material.h"
 #include "../Scene/SceneObject.h"
 #include "../Scene/Sphere.h"
 

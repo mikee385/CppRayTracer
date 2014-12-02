@@ -2,10 +2,10 @@
 #define SCENE_HEADER_GUARD
 
 #include "../ColorRGB.h"
-#include "../Table.h"
-#include "../Scene/SceneObject.h"
 #include "../Scene/SceneLight.h"
-#include "../Scene/Camera.h"
+#include "../Scene/SceneObject.h"
+#include "../Table.h"
+
 #include <vector>
 
 namespace scene

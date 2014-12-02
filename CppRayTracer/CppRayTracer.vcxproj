@@ -156,7 +156,7 @@
     <ClCompile Include="Geometry\Vector3D.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
-    <ClCompile Include="PPM_Image.cpp" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="Scene\Camera.cpp" />
     <ClCompile Include="Scene\Plane.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
@@ -167,7 +167,7 @@
     <ClInclude Include="ColorRGB.h" />
     <ClInclude Include="Geometry\Geometry.h" />
     <ClInclude Include="Material.h" />
-    <ClInclude Include="PPM_Image.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="Scene\Camera.h" />
     <ClInclude Include="Scene\Plane.h" />
     <ClInclude Include="Scene\Scene.h" />

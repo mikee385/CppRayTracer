@@ -1,4 +1,5 @@
-#include "PPM_Image.h"
+#include "Image.h"
+
 #include <fstream>
 #include <algorithm>
 

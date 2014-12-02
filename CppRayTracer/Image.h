@@ -3,6 +3,7 @@
 
 #include "ColorRGB.h"
 #include "Table.h"
+
 #include <string>
 
 namespace image

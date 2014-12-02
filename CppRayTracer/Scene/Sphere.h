@@ -1,9 +1,8 @@
 #ifndef SPHERE_HEADER_GUARD
 #define SPHERE_HEADER_GUARD
 
-#include "../ColorRGB.h"
-#include "../Material.h"
 #include "../Geometry/Geometry.h"
+#include "../Material.h"
 #include "../Scene/SceneObject.h"
 
 namespace scene

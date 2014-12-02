@@ -1,9 +1,8 @@
 #ifndef CAMERA_HEADER_GUARD
 #define CAMERA_HEADER_GUARD
 
-#include "../ColorRGB.h"
-#include "../Table.h"
 #include "../Geometry/Geometry.h"
+#include "../Table.h"
 
 namespace scene
 {

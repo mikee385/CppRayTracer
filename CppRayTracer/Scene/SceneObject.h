@@ -1,8 +1,8 @@
 #ifndef SCENE_OBJECT_HEADER_GUARD
 #define SCENE_OBJECT_HEADER_GUARD
 
-#include "../Material.h"
 #include "../Geometry/Geometry.h"
+#include "../Material.h"
 
 namespace scene
 {

@@ -1,4 +1,5 @@
 #include "Sphere.h"
+
 #include <cmath>
 
 using namespace geometry;

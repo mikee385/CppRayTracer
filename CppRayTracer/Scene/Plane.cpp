@@ -1,4 +1,5 @@
 #include "Plane.h"
+
 #include <cmath>
 
 using namespace geometry;

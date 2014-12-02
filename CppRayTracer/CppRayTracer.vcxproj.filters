@@ -12,7 +12,6 @@
     <ClCompile Include="ColorRGB.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
-    <ClCompile Include="PPM_Image.cpp" />
     <ClCompile Include="Scene\Camera.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -46,10 +45,10 @@
     <ClCompile Include="Geometry\Constants.cpp">
       <Filter>Geometry</Filter>
     </ClCompile>
+    <ClCompile Include="Image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Table.h" />
-    <ClInclude Include="PPM_Image.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="ColorRGB.h" />
     <ClInclude Include="Scene\Camera.h">
@@ -73,5 +72,6 @@
     <ClInclude Include="Geometry\Geometry.h">
       <Filter>Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="Image.h" />
   </ItemGroup>
 </Project>
