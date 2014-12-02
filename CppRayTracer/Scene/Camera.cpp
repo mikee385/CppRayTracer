@@ -3,6 +3,7 @@
 #include <stdexcept>
 
 using namespace geometry;
+using namespace table;
 
 static Matrix3D ComputeOrientation(const Point3D& position, const Point3D& lookAtPoint)
 {

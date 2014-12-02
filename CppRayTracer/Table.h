@@ -4,54 +4,57 @@
 #include <stdexcept>
 #include <vector>
 
-template< typename T>
-class Table
+namespace table
 {
-private:
-    std::vector<T> _data;
-    size_t _width;
-    size_t _height;
-
-    size_t GetIndex(size_t row, size_t column) const
+    template< typename T>
+    class Table
     {
-        if (row >= _height)
-            throw std::out_of_range("row");
-        if (column >= _width)
-            throw std::out_of_range("column");
+    private:
+        std::vector<T> _data;
+        size_t _width;
+        size_t _height;
 
-        return row*_width + column;
-    }
+        size_t GetIndex(size_t row, size_t column) const
+        {
+            if (row >= _height)
+                throw std::out_of_range("row");
+            if (column >= _width)
+                throw std::out_of_range("column");
 
-public:
-    typedef typename std::vector<T>::const_reference const_reference;
+            return row*_width + column;
+        }
 
-    Table(size_t width, size_t height)
-        : _width(width), _height(height), _data(width * height)
-    {}
+    public:
+        typedef typename std::vector<T>::const_reference const_reference;
 
-    Table(size_t width, size_t height, const_reference value)
-        : _width(width), _height(height), _data(width * height, value)
-    {}
+        Table(size_t width, size_t height)
+            : _width(width), _height(height), _data(width * height)
+        {}
 
-    size_t GetWidth() const
-    {
-        return _width;
-    }
+        Table(size_t width, size_t height, const_reference value)
+            : _width(width), _height(height), _data(width * height, value)
+        {}
 
-    size_t GetHeight() const
-    {
-        return _height;
-    }
+        size_t GetWidth() const
+        {
+            return _width;
+        }
 
-    void Set(size_t row, size_t column, const_reference value)
-    {
-        _data[GetIndex(row, column)] = value;
-    }
+        size_t GetHeight() const
+        {
+            return _height;
+        }
 
-    const_reference Get(size_t row, size_t column) const
-    {
-        return _data[GetIndex(row, column)];
-    }
-};
+        void Set(size_t row, size_t column, const_reference value)
+        {
+            _data[GetIndex(row, column)] = value;
+        }
+
+        const_reference Get(size_t row, size_t column) const
+        {
+            return _data[GetIndex(row, column)];
+        }
+    };
+}
 
 #endif

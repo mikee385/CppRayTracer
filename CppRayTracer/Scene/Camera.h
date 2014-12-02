@@ -36,7 +36,7 @@ namespace scene
         size_t GetImageHeight() const;
 
         geometry::Ray3D GetPrimaryRay(size_t row, size_t column) const;
-        void GetSubRays(size_t row, size_t column, Table<geometry::Ray3D>& rays) const;
+        void GetSubRays(size_t row, size_t column, table::Table<geometry::Ray3D>& rays) const;
     };
 }
 

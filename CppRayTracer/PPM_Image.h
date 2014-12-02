@@ -5,15 +5,18 @@
 #include "Table.h"
 #include <string>
 
-class PPM_Image
+namespace image
 {
-private:
-    std::string _fileName;
+    class PPM_Image
+    {
+    private:
+        std::string _fileName;
 
-public:
-    PPM_Image(const std::string& fileName);
+    public:
+        PPM_Image(const std::string& fileName);
 
-    void Save(const Table<ColorRGB>& image);
-};
+        void Save(const table::Table<color::ColorRGB>& image);
+    };
+}
 
 #endif

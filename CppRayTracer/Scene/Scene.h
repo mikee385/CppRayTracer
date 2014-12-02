@@ -34,7 +34,7 @@ namespace scene
             {}
         };
 
-        ColorRGB _backgroundColor;
+        color::ColorRGB _backgroundColor;
         float _refractiveIndex;
         size_t _maxRayDepth;
 
@@ -42,17 +42,17 @@ namespace scene
         std::vector<InternalLight> _lights;
 
     public:
-        Scene(const ColorRGB& backgroundColor, float refractiveIndex, size_t maxRayDepth);
+        Scene(const color::ColorRGB& backgroundColor, float refractiveIndex, size_t maxRayDepth);
 
         void AddLightSource(const SceneLight* light);
         void AddObject(const SceneObject* object);
 
         struct TraceResult
         {
-            ColorRGB Color;
+            color::ColorRGB Color;
             float Distance;
 
-            TraceResult(const ColorRGB& color, float distance)
+            TraceResult(const color::ColorRGB& color, float distance)
                 : Color(color), Distance(distance)
             {}
         };

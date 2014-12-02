@@ -1,6 +1,8 @@
 #include "SceneLight.h"
 
+using namespace color;
 using namespace geometry;
+using namespace material;
 
 namespace scene
 {

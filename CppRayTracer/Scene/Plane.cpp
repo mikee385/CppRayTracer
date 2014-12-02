@@ -2,6 +2,7 @@
 #include <cmath>
 
 using namespace geometry;
+using namespace material;
 
 namespace scene
 {

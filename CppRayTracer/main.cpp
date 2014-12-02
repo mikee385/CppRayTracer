@@ -9,8 +9,13 @@
 #include <sstream>
 #include <vector>
 
+using namespace color;
 using namespace geometry;
+using namespace image;
+using namespace material;
 using namespace scene;
+using namespace table;
+
 using namespace std;
 
 #define EXAMPLE_TO_RUN 3

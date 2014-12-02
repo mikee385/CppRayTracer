@@ -3,45 +3,48 @@
 
 #include "ColorRGB.h"
 
-class MaterialBuilder;
-
-struct Material
+namespace material
 {
-    ColorRGB Color;
-    float Diffuse;
-    float Specular;
-    int Shininess;
-    float Reflection;
-    float Refraction;
-    float RefractiveIndex;
+    class MaterialBuilder;
 
-    Material(const ColorRGB& color);
-    Material(const MaterialBuilder& params);
-};
+    struct Material
+    {
+        color::ColorRGB Color;
+        float Diffuse;
+        float Specular;
+        int Shininess;
+        float Reflection;
+        float Refraction;
+        float RefractiveIndex;
 
-class MaterialBuilder
-{
-private:
-    friend struct Material;
+        Material(const color::ColorRGB& color);
+        Material(const MaterialBuilder& params);
+    };
 
-    ColorRGB _color;
-    float _diffuse;
-    float _specular;
-    int _shininess;
-    float _reflection;
-    float _refraction;
-    float _refractiveIndex;
+    class MaterialBuilder
+    {
+    private:
+        friend struct Material;
 
-public:
-    MaterialBuilder();
+        color::ColorRGB _color;
+        float _diffuse;
+        float _specular;
+        int _shininess;
+        float _reflection;
+        float _refraction;
+        float _refractiveIndex;
 
-    MaterialBuilder& Color(ColorRGB color);
-    MaterialBuilder& Diffuse(float diffuse);
-    MaterialBuilder& Specular(float specular);
-    MaterialBuilder& Shininess(int shininess);
-    MaterialBuilder& Reflection(float reflection);
-    MaterialBuilder& Refraction(float refraction);
-    MaterialBuilder& RefractiveIndex(float refractiveIndex);
-};
+    public:
+        MaterialBuilder();
+
+        MaterialBuilder& Color(color::ColorRGB color);
+        MaterialBuilder& Diffuse(float diffuse);
+        MaterialBuilder& Specular(float specular);
+        MaterialBuilder& Shininess(int shininess);
+        MaterialBuilder& Reflection(float reflection);
+        MaterialBuilder& Refraction(float refraction);
+        MaterialBuilder& RefractiveIndex(float refractiveIndex);
+    };
+}
 
 #endif

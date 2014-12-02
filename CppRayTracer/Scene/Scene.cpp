@@ -1,7 +1,9 @@
 #include "Scene.h"
 #include <cmath>
 
+using namespace color;
 using namespace geometry;
+using namespace material;
 
 static const float Bias = 1.0e-4f;
 

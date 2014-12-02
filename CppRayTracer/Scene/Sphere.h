@@ -13,10 +13,10 @@ namespace scene
     private:
         geometry::Point3D _center;
         float _radius, _radius2;
-        Material _material;
+        material::Material _material;
 
     public:
-        Sphere(const geometry::Point3D& center, float radius, const Material& material);
+        Sphere(const geometry::Point3D& center, float radius, const material::Material& material);
 
         const geometry::Point3D& GetCenter() const;
         float GetRadius() const;
@@ -24,7 +24,7 @@ namespace scene
         virtual IntersectResult Intersect(const geometry::Ray3D& ray) const;
 
         virtual geometry::Direction3D GetNormal(const geometry::Point3D& point) const;
-        virtual Material GetMaterial(const geometry::Point3D& point) const;
+        virtual material::Material GetMaterial(const geometry::Point3D& point) const;
     };
 }
 

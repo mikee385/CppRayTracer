@@ -15,11 +15,11 @@ namespace scene
         Sphere _sphere;
 
     public:
-        SceneLight(const geometry::Point3D& center, float radius, const ColorRGB& color);
+        SceneLight(const geometry::Point3D& center, float radius, const color::ColorRGB& color);
 
         const geometry::Point3D& GetCenter() const;
         float GetRadius() const;
-        Material GetMaterial(const geometry::Point3D& point) const;
+        material::Material GetMaterial(const geometry::Point3D& point) const;
 
         operator const SceneObject&() const;
     };
