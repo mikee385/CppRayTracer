@@ -1,4 +1,11 @@
 #################
+## Project Specific
+#################
+
+*.ppm
+
+
+#################
 ## Eclipse
 #################
 
@@ -214,7 +221,3 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-/CppRayTracer/Old
-/CppRayTracer/Scene - v1.cpp
-/CppRayTracer/TEMP
-*.ppm
