@@ -102,7 +102,7 @@ int main()
     scene.AddLightSource(&lightSource);
     
     const size_t imageWidth = 640;
-    const size_t height = 480;
+    const size_t imageHeight = 480;
     const float fieldOfView = 30;
     Camera camera(imageWidth, imageHeight, fieldOfView, 1, Point3D::Origin, Point3D(0, 0, 1));
 
@@ -147,7 +147,7 @@ int main()
     scene.AddLightSource(&lightSource2);
     
     const size_t imageWidth = 800;
-    const size_t height = 600;
+    const size_t imageHeight = 600;
     Camera camera(imageWidth, imageHeight, 8, 6, 5, Point3D(0, 0, -5), Point3D(0, 0, 1));
 
 #endif
@@ -303,7 +303,7 @@ Table<ColorRGB> render(const Scene& scene, const Camera& camera)
 
     // Edge Detection
     chrono::system_clock::time_point edge_detection_start = chrono::high_resolution_clock::now();
-    Table<bool> isEdge(width, height);
+    Table<bool> isEdge(width, height, false);
     for (size_t row = 1; row < height - 1; ++row)
     {
         for (size_t column = 1; column < width - 1; ++column)
