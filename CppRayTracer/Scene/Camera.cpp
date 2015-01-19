@@ -62,25 +62,15 @@ namespace scene
         return _imageHeight;
     }
 
-    Point3D Camera::GetPixelCenter(size_t row, size_t column) const
+    Ray3D Camera::GetPrimaryRay(size_t row, size_t column) const
     {
         float x = _xMin + _dx * (column + 0.5f);
         float y = _yMax - _dy * (row + 0.5f);
         float z = _distanceToPlane;
 
-        return Point3D(x, y, z);
-    }
-
-    Point3D Camera::ConvertCameraToWorld(const Point3D& pointInCamera) const
-    {
-        return pointInCamera.Rotate(_orientation).Translate(Vector3D(_position));
-    }
-
-    Ray3D Camera::GetPrimaryRay(size_t row, size_t column) const
-    {
-        Point3D pointInCamera = GetPixelCenter(row, column);
-        Direction3D rayDirection = Direction3D(_position, ConvertCameraToWorld(pointInCamera));
-        return Ray3D(_position, rayDirection);
+        Vector3D directionInCamera = Vector3D(x, y, z);
+        Direction3D directionInWorld = directionInCamera.Rotate(_orientation).ToUnit();
+        return Ray3D(_position, directionInWorld);
     }
 
     void Camera::GetSubRays(size_t row, size_t column, Table<Ray3D>& rays) const
@@ -104,9 +94,12 @@ namespace scene
         {
             for (size_t column = 0; column < width; ++column)
             {
-                Point3D pointInCamera = Point3D(x0 + column*xStep, y0 - row*yStep, z0);
-                Direction3D rayDirection = Direction3D(_position, ConvertCameraToWorld(pointInCamera));
-                rays.Set(row, column, Ray3D(_position, rayDirection));
+                float x = x0 + column*xStep;
+                float y = y0 - row*yStep;
+
+                Vector3D directionInCamera = Vector3D(x, y, z0);
+                Direction3D directionInWorld = directionInCamera.Rotate(_orientation).ToUnit();
+                rays.Set(row, column, Ray3D(_position, directionInWorld));
             }
         }
     }

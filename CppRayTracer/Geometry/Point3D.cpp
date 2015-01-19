@@ -30,14 +30,6 @@ namespace geometry
             Z + vector.Z);
     }
 
-    Point3D Point3D::Rotate(const Matrix3D& matrix) const
-    {
-        return Point3D(
-            X * matrix.X.X + Y * matrix.Y.X + Z * matrix.Z.X,
-            X * matrix.X.Y + Y * matrix.Y.Y + Z * matrix.Z.Y,
-            X * matrix.X.Z + Y * matrix.Y.Z + Z * matrix.Z.Z);
-    }
-
     bool Point3D::Equals(const Point3D& other) const
     {
         return

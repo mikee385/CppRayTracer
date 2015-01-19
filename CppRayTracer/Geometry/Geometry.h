@@ -26,7 +26,6 @@ namespace geometry
 
         Point3D Translate(const Vector3D& direction, float magnitude) const;
         Point3D Translate(const Vector3D& vector) const;
-        Point3D Rotate(const Matrix3D& matrix) const;
 
         bool Equals(const Point3D& other) const;
         bool Equals(const Point3D& other, float tolerance) const;
