@@ -1,4 +1,4 @@
-# Simple Ray Tracer - C++ #
+# Simple Ray Tracer - C++
 
 The intention of this project is to have a meaningful program that I can recreate in other programming languages while I am learning them.
 
@@ -18,3 +18,9 @@ The design of this program is entirely my own, but the concepts and ideas were h
 
 - Raytracing Topics & Techniques by Jacco Bikker ([http://www.flipcode.com/archives/Raytracing_Topics_Techniques-Part_1_Introduction.shtml](http://www.flipcode.com/archives/Raytracing_Topics_Techniques-Part_1_Introduction.shtml "http://www.flipcode.com/archives/Raytracing_Topics_Techniques-Part_1_Introduction.shtml"))
 - 3D Basic Lessons ([http://www.scratchapixel.com/lessons/3d-basic-lessons/](http://www.scratchapixel.com/lessons/3d-basic-lessons/ "http://www.scratchapixel.com/lessons/3d-basic-lessons/"))
+
+## License
+
+CppRayTracer is distributed under the terms of the BSD 2-clause license.
+
+See LICENSE.md for details.
